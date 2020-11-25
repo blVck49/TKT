@@ -55,16 +55,22 @@ const userscontroller = {
             //hash password
             if (password) {
                 password = bcrypt.hashSync(password, 8);
+        
+
             }
+            console.log("email")
+
 
             user = await userModel.create({
                 ...req.body,
                 password: password
             })
+            console.log("email")
+
 
             // get jwt
             const token = getToken(user, SECRETE_KEY);
-
+            
             return res.status(200).send({
                 status_code: 200,
                 message: "Registration successful!",
@@ -78,7 +84,8 @@ const userscontroller = {
             return res.status(500).send({
                 status_code: 500,
                 detail: err.message,
-                message: "Internal server error!"
+                message: "Internal server error!",
+                request: req.body
             });
         }
     },

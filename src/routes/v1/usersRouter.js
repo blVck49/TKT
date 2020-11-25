@@ -14,6 +14,57 @@ const {
 } = require("../../controllers/userscontroller");
 
 
+  /**
+   * @swagger
+   * definitions:
+   *  User:
+   *   type: object
+   *   properties:
+   *    firstname:
+   *     type: string
+   *    lastname:  
+   *     type: string
+   *    email: 
+   *     type: string
+   *     example: 'bettybutter@gmail.com'
+   *    password: 
+   *     type: string
+   *    image: 
+   *     type: String,
+   *     default: "https://res.cloudinary.com/specialman/image/upload/f_auto,fl_lossy,q_auto/v1600110269/profile_hk4zyr.png"
+   *    role: 
+   *     type: String,
+   *     default: "user"
+   *    status: 
+   *     type: Number,
+   *     default: 1
+   *    resetPassword: 
+   *     token: Number,
+   *     expire: Number
+   */
+
+
+ /** 
+ * @swagger 
+ * /users:
+ *  post:
+ *    summary: create a user
+ *    parameters:
+ *      - in: body
+ *        name: body
+ *        required: true
+ *        schema:
+ *          $ref: '#definitions/User'
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#definition/User'
+ *    responses:
+ *      "200":
+ *        description: A successful response
+*/
+
 usersRouter.post(
   "/users/",
   register
