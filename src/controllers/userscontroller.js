@@ -6,8 +6,6 @@ const mongoose = require('mongoose')
 const SECRETE_KEY = process.env.SECRETE_KEY;
 
 
-
-
 const userscontroller = {
 
     /**
@@ -305,6 +303,55 @@ const userscontroller = {
             });
         }
 
+    },
+
+    /**
+     * Change Password
+     */
+
+    async changePassword(req, res) {
+        try {
+            const { oldpassword, newpassword } = req.body;
+
+            let user = await userModel.findOne(
+                {
+                    'email': req.user.currentUser.email
+                }
+            )
+
+            const validPassword = bcrypt.compareSync(oldpassword, user.password);
+
+
+            if(validPassword)
+            {
+                //change password here
+                const hashedPassword = bcrypt.hashSync(newpassword, 8);
+                await user.updateOne({
+                    password: hashedPassword
+                })
+
+                return res.status(200).send({
+                    status_code: 200,
+                    message: "Password changed!"
+                });
+    
+            }
+
+            //old password not correct
+            return res.status(404).send({
+                status_code: 404,
+                message: "Password not correct!"
+            });
+
+
+        } catch (error) {
+
+            return res.status(500).send({
+                status_code: 500,
+                message: error.message //"Internal server error!"
+            });
+
+        }
     },
 
 

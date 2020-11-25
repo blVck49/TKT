@@ -9,7 +9,8 @@ const {
   getUsers,
   resetPassword,
   newPassword,
-  updateProfile
+  updateProfile,
+  changePassword
 } = require("../../controllers/userscontroller");
 
 
@@ -56,6 +57,13 @@ usersRouter.post(
 usersRouter.post(
   "/users/new-password",
   newPassword
+);
+
+//change Password
+usersRouter.post(
+  "/users/change-password",
+  isLoggedIn,
+  changePassword
 );
 
 
