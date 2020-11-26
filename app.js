@@ -1,51 +1,52 @@
+
 const express = require('express');
 const routes = require("./src/routes");
 
-  
-
-
+var bodyParser = require("body-parser");
+var swaggerJsDoc = require("swagger-jsdoc")
+var swaggerUI = require("swagger-ui-express");
 var cors = require('cors');
+
+const port = process.env.PORT;
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api", routes);
 
-const swaggerJsDoc = require('swagger-jsdoc');
-const swaggerUI = require('swagger-ui-express');
 
 const swaggerOptions = {
-    swaggerDefinition: {
-      info: {
-        title: "sample API",
-        description: "This is a sample API documentation",
-        version: "1.0.0",
-        contact: {
-          name: "",
-          email: ""
-        },
-        servers: ["http://localhost:8001"],
-        filespattern: './**/*.js'
-      }
+  swaggerDefinition: {
+    info: {
+      title: "SGS NodeJS Base API",
+      description: "This is API documentation for XYZ NodeJS backend",
+      version: "3.0.0",
+      contact: {
+        name: "Special Man Global Solution LTD",
+        email: "support@specialmansolution.com"
+      },
+      servers: ["http://localhost:" + port]
     },
-    apis: ["'./src/**/**/*.js'"]
-  };
-  
-  
-  
-  
-  const swaggerDocs = swaggerJsDoc(swaggerOptions);
-  app.use ("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
-  
+    basePath: '/api/v1'
+  },
+  apis: ['./src/routes/v1/*.js', './src/models/*.js']
+};
 
+
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs, { explorer: true }));
+
+
+app.use("/api", routes);
 
 // Enable CORS
-app.use( (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, X-Access-Token, XKey, Authorization, Observe");
-    next();
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, X-Access-Token, XKey, Authorization, Observe");
+  next();
 });
 
 
