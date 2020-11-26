@@ -88,7 +88,8 @@ const userscontroller = {
                 status_code: 500,
                 detail: err.message,
                 message: "Internal server error!",
-                request: req.body
+                data: err,
+                response: req.body
             });
         }
     },
@@ -132,7 +133,9 @@ const userscontroller = {
             return res.status(500).send({
                 status_code: 500,
                 detail: error.message,
-                message: "Internal server error!"
+                message: "Internal server error!",
+                data: error,
+                response: req.body
             });
         }
 
@@ -182,7 +185,8 @@ const userscontroller = {
         } catch (error) {
             return res.status(500).send({
                 status_code: 500,
-                message: "Internal server error!",
+                message: error.message, //"Internal server error!"
+                data: error,
                 response: req.body 
             });
         }
@@ -251,7 +255,8 @@ const userscontroller = {
 
             return res.status(200).send({
                 status_code: 200,
-                message: "Password changed!"
+                message: "Password changed!",
+                response: req.body
             });
 
 
@@ -260,6 +265,7 @@ const userscontroller = {
             return res.status(500).send({
                 status_code: 500,
                 message: error.message, //"Internal server error!"
+                data: error,
                 response: req.body
             });
 
@@ -353,7 +359,9 @@ const userscontroller = {
 
                 return res.status(200).send({
                     status_code: 200,
-                    message: "Password changed!"
+                    message: "Password changed!",
+                    response: req.body,
+        
                 });
     
             }
@@ -361,7 +369,8 @@ const userscontroller = {
             //old password not correct
             return res.status(404).send({
                 status_code: 404,
-                message: "Password not correct!"
+                message: "Password not correct!",
+                response: req.body
             });
 
 
@@ -369,7 +378,9 @@ const userscontroller = {
 
             return res.status(500).send({
                 status_code: 500,
-                message: error.message //"Internal server error!"
+                message: error.message, //"Internal server error!"
+                data: error,
+                response: req.body
             });
 
         }
