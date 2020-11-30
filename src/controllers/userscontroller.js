@@ -26,7 +26,9 @@ const userscontroller = {
                 status_code: 500,
                 detail: error.message,
                 message: "Internal server error!",
+
                 request: req.body
+
 
             });
 
@@ -52,7 +54,11 @@ const userscontroller = {
                     status_code: 400,
                     message: "User already exist, please login",
                     data: user,
+
                     request: req.body
+
+                  
+
                 });
             }
 
@@ -89,7 +95,8 @@ const userscontroller = {
                 status_code: 500,
                 detail: err.message,
                 message: "Internal server error!",
-                request: req.body
+                data: err,
+                response: req.body
             });
         }
     },
@@ -116,7 +123,9 @@ const userscontroller = {
                 return res.status(400).send({
                     status_code: 400,
                     message: "Incorrect email and password combination!",
+
                     request: req.body
+
                 });
 
             // get jwt
@@ -126,7 +135,11 @@ const userscontroller = {
                 status_code: 200,
                 message: "Login successful!",
                 token,
+
                 request: req.body
+
+               
+
             });
 
         } catch (error) {
@@ -135,7 +148,9 @@ const userscontroller = {
                 detail: error.message,
                 message: "Internal server error!",
                 data: error,
+
                 request: req.body
+
             });
         }
 
@@ -171,7 +186,12 @@ const userscontroller = {
             if (!user) {
                 return res
                     .status(404)
+
                     .send({ status_code: 404, message: "User not found!", request: req.body });
+
+                    
+
+
             }
 
             //send token to email
@@ -186,7 +206,9 @@ const userscontroller = {
                 status_code: 500,
                 message: error.message, //"Internal server error!"
                 data: error,
+
                 request: req.body 
+
             });
         }
     },
@@ -231,7 +253,9 @@ const userscontroller = {
             if (!user) {
                 return res
                     .status(404)
+
                     .send({ status_code: 404, message: "Invalid token or email, please try again!", request: req.body });
+
             }
 
             if (user) {
@@ -239,7 +263,9 @@ const userscontroller = {
                 if (user.resetPassword.expire < new Date().getTime()) {
                     return res
                         .status(404)
+
                         .send({ status_code: 404, message: "Token expired, please try again!", request: req.body });
+
                 }
             }
 
@@ -255,7 +281,11 @@ const userscontroller = {
             return res.status(200).send({
                 status_code: 200,
                 message: "Password changed!",
+
                 request: req.body
+
+               
+
             });
 
 
@@ -263,9 +293,13 @@ const userscontroller = {
 
             return res.status(500).send({
                 status_code: 500,
+
                 message: error.message,//"Internal server error!"
                 data: error,
                 request: req.body
+
+                
+
             });
 
         }
@@ -286,7 +320,9 @@ const userscontroller = {
             return res.status(200).send({
                 status_code: 200,
                 data: user,
+
                 request: req.body
+
             });
 
         } catch (error) {
@@ -295,7 +331,9 @@ const userscontroller = {
                 detail: error.message,
                 message: "Internal server error!",
                 data: error,
+
                 request: req.body
+
             });
         }
 
@@ -316,7 +354,9 @@ const userscontroller = {
                 status_code: 200,
                 message: "Profile updated",
                 data: user,
+
                 request: req.body
+
             });
 
         } catch (error) {
@@ -325,7 +365,10 @@ const userscontroller = {
                 detail: error.message,
                 message: "Internal server error!",
                 data: error,
+
                 request: req.body
+
+
             });
         }
 
@@ -359,7 +402,9 @@ const userscontroller = {
                 return res.status(200).send({
                     status_code: 200,
                     message: "Password changed!",
+
                     request: req.body
+
                 });
     
             }
@@ -368,7 +413,11 @@ const userscontroller = {
             return res.status(404).send({
                 status_code: 404,
                 message: "Password not correct!",
+
                 request: req.body
+
+                
+
             });
 
 
@@ -376,9 +425,12 @@ const userscontroller = {
 
             return res.status(500).send({
                 status_code: 500,
+
                 message: error.message,//"Internal server error!"
                 data: error,
                 request: req.body
+
+  
             });
 
         }
