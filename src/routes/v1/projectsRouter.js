@@ -3,21 +3,43 @@ const { isLoggedIn } = require("../../middleware").auth;
 
 const {
     addProject,
-    getProject
+    getProjects,
+    getProject,
+    updateProject,
+    deleteProject
   } = require("../../controllers/projectscontroller");
 
- projectsRouter.get(
-    "/projects/",
-    isLoggedIn,
-    getProject
-  );
-  
-
- projectsRouter.post(
+  projectsRouter.post(
     "/projects/",
     isLoggedIn,
     addProject
   );
+
+ projectsRouter.get(
+    "/projects/",
+    isLoggedIn,
+    getProjects
+  );
+
+  projectsRouter.get(
+    "/projects/:id",
+    isLoggedIn,
+    getProject
+  );
+
+  projectsRouter.patch(
+    "/projects/:id",
+    isLoggedIn,
+    updateProject
+  );
+
+  projectsRouter.delete(
+    "/projects/:id",
+    isLoggedIn,
+    deleteProject
+  );
   
+
+
 
   module.exports = projectsRouter;

@@ -3,11 +3,16 @@ const mongoose = require('mongoose')
 const projectSchema = new mongoose.Schema({
     title: {
         type: String,
-        trim: true
+        required: true
     },
     description: {
         type: String,
-        
+        required: true
+    },
+    category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true
     }
 },
     {

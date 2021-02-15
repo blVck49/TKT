@@ -1,6 +1,8 @@
 const usersRouter = require("./usersRouter");
-const projectsRouter = require("./projectsRouter")
+const projectsRouter = require("./projectsRouter");
+const categoriesRouter = require("./categoriesRouter")
+
 
 module.exports = [
-    usersRouter, projectsRouter
+    usersRouter, projectsRouter, categoriesRouter
 ];
