@@ -1,6 +1,7 @@
 const userModel = require("./user");
-const projectModel = require("./project")
+const projectModel = require("./project");
+const categoryModel = require("./category")
 
 module.exports = {
-    userModel, projectModel
+    userModel, projectModel, categoryModel
 };
